@@ -1,4 +1,4 @@
-// phase(mode="get")
+// phase(mode="post")
 // funcction to determine moon phase 
 // three modes: 
 // first default gets postion from astronomy API
