@@ -33,9 +33,9 @@ const port = 3001 // factor into cmd opts
 // GET '/' - the bread and butter route. Makes call to usno API. 
 app.get('/', async (req, res) => {
   // variables for API - hardcoded to a known recent full moon for now
-  let date = "2025-11-5"
-  let phaseNum = "1"
-  let getRequest = 'https://aa.usno.navy.mil/api/moon/phases/date?date=' + date + '&nump=' + phaseNum
+  var dateTime = new Date() // we want YYYY-MM-DD, which slicing ISO format gets
+  let phaseNum = "1" 
+  let getRequest = 'https://aa.usno.navy.mil/api/moon/phases/date?date=' + dateTime.toISOString().slice(0,10) + '&nump=' + phaseNum
   // fetch + callbacks but this can also be done with the https library
   await fetch(getRequest).then(response => response.text())
   .then(text => JSON.parse(text))
