@@ -25,15 +25,6 @@ let currentLocation = ""
 let timeSinceLastFullMoon = 0
 
 
-function navalObservatoryMoonPhase() {
-
-    return phaseData
-}
-
-
-
-
-
 function phase() {
 
     return moonPhase 
