@@ -69,7 +69,7 @@ app.post('/', async (req, res) => {
     // the first case is a special case - full moon. In that case, we write the new date to the file as our last known full moon
     // this prevents long-term clock drift etc from rounding errors and means our 29.2 fudge for the sidereal period works.
     if (phaseDay < 1 ) {
-      res.send("Full Moon")
+      res.send("🌕 Full Moon")
       fs.writeFileSync('public/javascripts/lastFullMoon.json','{"last" : "' + now.toISOString().slice(0,10)+ '"}', function(err) { 
         if (err) {
           console.log("error updating full moon")
@@ -77,19 +77,19 @@ app.post('/', async (req, res) => {
         console.log("full moon date updated")
       })
     } else if (phaseDay < 7 ) {
-      res.send("Waning Gibbous")
+      res.send("🌕 Waning Gibbous")
     } else if ( phaseDay < 8) {
-      res.send("Waning Half")
+      res.send("🌗 Waning Half")
     } else if (phaseDay < 14) {
-      res.send("Waning Crescent")
+      res.send("🌘 Waning Crescent")
     } else if (phaseDay < 15) {
-      res.send("New Moon")
+      res.send("🌑 New Moon")
     } else if (phaseDay < 22) {
-      res.send("Waxing Crescent")
+      res.send("🌒 Waxing Crescent")
     } else if (phaseDay < 23) {
-      res.send("Waxing Half Moon")
+      res.send("🌓 Waxing Half Moon")
     } else if (phaseDay < 30) {
-      res.send("Waxing Gibbous")
+      res.send("🌔 Waxing Gibbous")
     } else { res.send("periodicity error") }
   })
 })
@@ -108,7 +108,7 @@ app.delete('/', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`The Moon Rules #1 (running on) ${port}`)
+  console.log(`The Moon Rules #1 (running on ${port})`)
 })
 
 module.exports = app;
