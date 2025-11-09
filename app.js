@@ -28,7 +28,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const port = 3001 // factor into cmd opts
+const port = process.env.PORT || 3001 // factor into cmd opts
 const fs = require('fs');
 
 // GET '/' - the bread and butter route. Makes call to usno API. 
