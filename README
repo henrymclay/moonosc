@@ -7,10 +7,10 @@ Moonosc is designed to do one thing: answer the question: "what is the lunar pha
 #### Modes
 With that in mind, there are two operating modes for Moonosc v0.1 
 
-###### Mode 1
+###### Mode 1 : GET /
 The first mode relays the relevant information (current lunar phase) from the US Naval Observatory's astronomy data API. This mode is accessible via a GET request to the root URI. If you are running locally via the 'npm start' command, you can view it at "localhost:PORT" through your browser, or via a curl to "localhost:PORT" from a terminal window. 
 
-###### Mode 2 
+###### Mode 2 : POST / 
 The second mode calculates the current lunar phase based on the last known full moon. The repository includes a hardcoded starting date for this calculation, and will update it as it detects newer full moons. Right now this is handled via local file. This mode is accessible via a POST request to the root URI, and calculates based on the user's current date and time info. If you are running locally via 'npm start', then a curl POST command to localhost:PORT will show the response. Currently this provides more accurate data than Mode 1, likely due to 3rd party API constraints. 
 
 #### Running Moonosc
