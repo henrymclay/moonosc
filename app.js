@@ -42,10 +42,11 @@ app.get('/', async (req, res) => {
   .then(text => JSON.parse(text))
   .then(json => {
     console.log('responding: ' + json.phasedata[0].phase) // log response 
-    res.send(json.phasedata[0].phase) // send response
+    res.status(200).send(json.phasedata[0].phase) // send response
   })
   .catch((err) => {
-    console.log("Failed to connect to API", err) 
+    console.log("Failed to connect to API", err)
+    res.status(500).send("Internal Server Error")
   })
 })
 
@@ -69,7 +70,7 @@ app.post('/', async (req, res) => {
     // the first case is a special case - full moon. In that case, we write the new date to the file as our last known full moon
     // this prevents long-term clock drift etc from rounding errors and means our 29.2 fudge for the sidereal period works.
     if (phaseDay < 1 ) {
-      res.send("🌕 Full Moon")
+      res.status(200).send("🌕 Full Moon")
       fs.writeFileSync('public/javascripts/lastFullMoon.json','{"last" : "' + now.toISOString().slice(0,10)+ '"}', function(err) { 
         if (err) {
           console.log("error updating full moon")
@@ -77,38 +78,40 @@ app.post('/', async (req, res) => {
         console.log("full moon date updated")
       })
     } else if (phaseDay < 7 ) {
-      res.send("🌕 Waning Gibbous")
+      res.status(200).send("🌕 Waning Gibbous")
     } else if ( phaseDay < 8) {
-      res.send("🌗 Waning Half")
+      res.status(200).send("🌗 Waning Half")
     } else if (phaseDay < 14) {
-      res.send("🌘 Waning Crescent")
+      res.status(200).send("🌘 Waning Crescent")
     } else if (phaseDay < 15) {
-      res.send("🌑 New Moon")
+      res.status(200).send("🌑 New Moon")
     } else if (phaseDay < 22) {
-      res.send("🌒 Waxing Crescent")
+      res.status(200).send("🌒 Waxing Crescent")
     } else if (phaseDay < 23) {
-      res.send("🌓 Waxing Half Moon")
+      res.status(200).send("🌓 Waxing Half Moon")
     } else if (phaseDay < 30) {
-      res.send("🌔 Waxing Gibbous")
-    } else { res.send("periodicity error") }
+      res.status(200).send("🌔 Waxing Gibbous")
+    } else { 
+      res.status(500).send("periodicity error") 
+    }
   })
 })
 
 // other verbs - should not be needed but implementing as errors for future proofing. eventually there might be something. 
 // error - malformed request
 app.put('/', (req, res) => {
-  var response = "error, malformed request (PUT). this endpoint takes HTTP GET only."
-  res.send({response})
+  var response = "error, bad request (PUT)."
+  res.status(400).send({response})
 })
 
 // error - malformed request
 app.delete('/', (req, res) => {
-  var response = "error, malformed request (DELETE). this endpoint takes HTTP GET only."
-  res.send({response})
+  var response = "error, bad request (DELETE)."
+  res.status(400).send({response})
 })
 
 app.listen(port, () => {
-  console.log(`The Moon Rules #1 (running on ${port})`)
+  console.log(`Moonosc running on ${port})`)
 })
 
-module.exports = app;
+module.exports = app
