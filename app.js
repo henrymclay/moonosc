@@ -106,12 +106,12 @@ app.post('/', async (req, res) => {
 
 // errors for other routes + verbs. 
 app.get('*', (req, res) => {
-  var response = "invalid route"
+  var response = "invalid route - try '/'"
   res.status(400).send({response})
 })
 
 app.post('*', (req, res) => {
-  var response = "invalid route"
+  var response = "invalid route - try '/'"
   res.status(400).send({response})
 })
 
