@@ -104,14 +104,23 @@ app.post('/', async (req, res) => {
   })
 })
 
-// other verbs - should not be needed but implementing as errors for future proofing. eventually there might be something. 
-// error - malformed request
-app.put('/', (req, res) => {
+// errors for other routes + verbs. 
+app.get('*', (req, res) => {
+  var response = "invalid route"
+  res.status(400).send({response})
+})
+
+app.post('*', (req, res) => {
+  var response = "invalid route"
+  res.status(400).send({response})
+})
+
+app.put('*', (req, res) => {
   var response = "error, bad request (PUT)."
   res.status(400).send({response})
 })
 
-app.delete('/', (req, res) => {
+app.delete('*', (req, res) => {
   var response = "error, bad request (DELETE)."
   res.status(400).send({response})
 })
